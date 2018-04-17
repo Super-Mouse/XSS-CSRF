@@ -1,8 +1,7 @@
+import 'jquery'
+// require('jquery')
+import Util from './module1';
 let name = 'es-2015';
-const sayName = (name)=>{
-    document.write('i am ' + name)
-};
-
 let obj = {
     x: 1,
     y:2
@@ -20,4 +19,22 @@ fetch('/api/issues', {
 });
 
 
-sayName(name);
+Util.sayName(name);
+
+
+
+$('#btn')[0].onclick = function(){
+    let myDiv = $('#myDiv')[0];
+    myDiv.style.width = '0';
+    // cancelAnimationFrame(timer);
+    requestAnimationFrame(fn);
+
+
+    function fn(){
+        if(parseInt(myDiv.style.width) < 500){
+            myDiv.style.width = parseInt(myDiv.style.width) + 5 + 'px';
+            myDiv.innerHTML = parseInt(myDiv.style.width)/5 + '%';
+            requestAnimationFrame(fn);
+        }
+    }
+}

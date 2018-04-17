@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
-app.use(express.static(__dirname + '/static'));
+var path = require('path');
+app.use(express.static(path.resolve(__dirname, '..') + '/static'));
+
 
 //处理post请求中req.body
 const bodyParser = require('body-parser');
