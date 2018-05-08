@@ -25,7 +25,6 @@ app.get('/', (req, res)=>{
     res.type('text/plain');
     res.send('Home');
 });
-
 app.get('/about', (req, res)=>{
     res.type('text/plain');
     let s = '';
