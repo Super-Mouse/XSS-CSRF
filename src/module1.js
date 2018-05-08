@@ -1,9 +1,9 @@
 import 'lodash'
+import $ from "jquery";
 
 export default {
     sayName(name) {
-        let fenghao = 'fenghao'
-        document.write('My name is' + name);
+        $('#btn').addClass(name);
     },
     sayColor(color) {
         document.write('My name is' + color)

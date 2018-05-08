@@ -1,4 +1,4 @@
-import 'jquery'
+import $ from 'jquery';
 // require('jquery')
 import Util from './module1';
 let name = 'es-2015';
@@ -27,6 +27,7 @@ $('#btn')[0].onclick = function(){
     let myDiv = $('#myDiv')[0];
     myDiv.style.width = '0';
     // cancelAnimationFrame(timer);
+    debugger
     requestAnimationFrame(fn);
 
 
