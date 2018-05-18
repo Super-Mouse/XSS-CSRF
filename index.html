@@ -2,12 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-XSS-Protection" content="0">
     <title>Title</title>
+    <style>
+        #XSS{
+            width: 300px;
+            height: 200px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>Hello world~</h1>
-    <div id="myDiv" style="background-color: lightblue;width: 0;height: 20px;line-height: 20px;">0%</div>
-    <button id="btn">run</button>
+    <!--<div id="myDiv" style="background-color: lightblue;width: 0;height: 20px;line-height: 20px;">0%</div>-->
+    <!--<button id="btn">run</button>-->
+
+
+    <!--跨站请求伪造-->
+    <!--<img src="https://www.jd.com">-->
+
+    <!--跨站脚本攻击-->
+    <!--
+        1、<h1 style='color:red'>123</h1>
+        2、<img src='1234'  onerror="alert('你被黑了')" />
+        3、<img src='1234'  onerror="setInterval(function () {alert('你被黑了')}, 3000)" />
+        4、<img src='1234'  onerror="var img = new Image(); img.src = '/about?' + document.cookie" />
+    -->
+
+
+    <input id="xssInput" type="text" />
+    <button id="btn">发送</button>
+    <div id="XSS">
+
+    </div>
+
+    <script>
+        var xssInput = document.getElementById('xssInput');
+        var btn = document.getElementById('btn');
+        var xss = document.getElementById('XSS');
+        btn.onclick = function () {
+            // console.log(xssInput.value);
+            // fetch('/api/issues', {
+            //     method: 'post',
+            //     headers: {
+            //         'Content-type': 'application/json'
+            //     },
+            //     body: JSON.stringify({name: xssInput.value})
+            // }).then(res=>{
+            //     return res.json()
+            // }).then(update=>{
+            //     console.log(update);
+            //     xss.innerHTML = update.name;
+            // });
+            var obj = JSON.stringify({
+                name: xssInput.value
+            });
+            var xhr = new XMLHttpRequest();
+            xhr.open('post', '/api/issues');
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.send(obj);
+            xhr.onreadystatechange = function () {
+                // 这步为判断服务器是否正确响应
+                if (xhr.readyState == 4 && xhr.status == 200) {
+
+                    var res = JSON.parse(xhr.responseText)
+                    xss.innerHTML= res.name;
+                }
+            };
+        }
+    </script>
+
     <script>
 
     </script>
